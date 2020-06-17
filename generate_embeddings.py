@@ -2,15 +2,11 @@ import sys
 import os.path
 from laserembeddings import Laser
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-import csv
-import datetime
 import time
-import re
 
 
 def read_file(lang):
-    file = open('data' + lang + '.txt', 'r')
+    file = open('data/' + lang + '.txt', 'r')
     sentences = file.readlines()
     return (sentences)
 
@@ -25,8 +21,10 @@ def file_exists(lang):
 
 def embed(sentences, lang):
     laser = Laser()
-    print("Embedding sentences for {}...".format(lang))
-    embeddings = laser.embed_sentences(sentences, lang=lang)
+    embeddings = []
+    print("\nEmbedding sentences for {}...".format(lang))
+    for sentence in sentences:
+        embeddings.extend(laser.embed_sentences(sentence, lang=lang))
     return embeddings
 
 
