@@ -18,5 +18,5 @@ Substitute the two arguments by the two letter codes of the languages you want t
 language and secondly, the language with the big corpus.
 
 ## Data
-The scripts expect two files containing one sentence per line that are your corpora. One in the low-resourced language
+The scripts expect two files in the data folder containing one sentence per line that are your corpora. One in the low-resourced language
 and one that is the big corpus (eg. ca.txt and en.txt). Two files have been uploaded as reference.
