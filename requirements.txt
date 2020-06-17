@@ -1,0 +1,3 @@
+numpy >= 1.18.5
+laserembeddings >= 1.0.1
+faiss-gpu >= 1.6.3
