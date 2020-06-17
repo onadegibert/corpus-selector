@@ -45,28 +45,35 @@ def save_results(results,domain_sentences,target_sentences,target_lang):
             similar_sentences.append(target_sentences[index].strip())
         output_writer.writerow(similar_sentences)
 
+
 def main():
     start_time = time.time()
+
 
     # Obtain languages from command line
     domain_lang = sys.argv[1]
     target_lang = sys.argv[2]
 
+
     # Open embeddings files
     domain_embeddings = open_embeddings(domain_lang)
     target_embeddings = open_embeddings(target_lang)
 
+
     # Create index
     index = create_index(target_embeddings)
 
+
     # Run the query
     query = domain_embeddings.astype('float32')
-    k = 5
+    k = 5 #This parameter specifies the number of similar sentences we want to obtain
     results = get_results(k,query,index)
+
 
     # Open sentences files
     domain_sentences = read_file(domain_lang)
     target_sentences = read_file(target_lang)
+
 
 
     # Write results to a file

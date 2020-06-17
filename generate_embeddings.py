@@ -38,51 +38,36 @@ def save_embeddings(embeddings,lang):
 
 
 def create_embeddings(sentences,lang):
-    #Check if file exists
-    if file_exists(lang) == True:
-        file = np.loadtxt('embeddings/' + lang + '_embeddings.txt')
-        embeddings = file
-    else:
-        embeddings = embed(sentences,lang)
-        save_embeddings(embeddings,lang)
+    #Check if file exists, UNCOMMENT this lines if there exist already some embeddings you want to use
+    # if file_exists(lang) == True:
+    #     file = np.loadtxt('embeddings/' + lang + '_embeddings.txt')
+    #     embeddings = file
+    # else:
+    # INDENT the following two lines if you want to use the condition file_exists()
+    embeddings = embed(sentences,lang)
+    save_embeddings(embeddings,lang)
     return(embeddings)
-
-
-def write_most_similar(scores,target_language,domain_sentences,target_sentences):
-    date_time = re.sub(r'[-:]','',datetime.datetime.now().replace(microsecond=0).isoformat())
-    output = open('output/' + target_language+'_similar_sentences_'+date_time+'.csv', 'w', newline='')
-    output_writer = csv.writer(output, delimiter=';')
-    i = 0
-    for row in scores:
-        indeces = np.argsort(-row)[:5]  # sorts the row per values and returns the indices of the highest scores
-        similar_sentences = [domain_sentences[i].strip()]
-        i += 1
-        for index in indeces:
-            similar_sentences.extend([target_sentences[index].strip()])
-        output_writer.writerow(similar_sentences)
 
 
 def main():
     start_time = time.time()
 
+
     #Obtain languages from command line
     domain_lang = sys.argv[1]
     target_lang = sys.argv[2]
+
 
     # Open files
     domain_sentences = read_file(domain_lang)
     target_sentences = read_file(target_lang)
 
+
     # Obtain embeddings if file doesn't exist already
-    domain_embeddings = create_embeddings(domain_sentences,domain_lang)
-    target_embeddings = create_embeddings(target_sentences,target_lang)
+    create_embeddings(domain_sentences,domain_lang)
+    create_embeddings(target_sentences,target_lang)
 
-    # Obtain cosine similarity scores
-    #print("Obtaining cosine similarity scores...")
-    #scores = cosine_similarity(domain_embeddings,target_embeddings)
 
-    # Write them to a file
-    #write_most_similar(scores,target_lang,domain_sentences,target_sentences)
     print("Total elapsed time:")
     print(time.time() - start_time)
 
