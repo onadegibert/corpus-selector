@@ -8,3 +8,4 @@ source ${ENV_DIR}/bin/activate
 
 # Install python dependencies
 pip install -r "${SCRIPT_DIR}"/requirements.txt
+python -m laserembeddings download-models
