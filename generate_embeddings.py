@@ -37,13 +37,13 @@ def save_embeddings(embeddings,lang):
 
 def create_embeddings(sentences,lang):
     #Check if file exists, UNCOMMENT this lines if there exist already some embeddings you want to use
-    # if file_exists(lang) == True:
-    #     file = np.loadtxt('embeddings/' + lang + '_embeddings.txt')
-    #     embeddings = file
-    # else:
+    if file_exists(lang) == True:
+        file = np.loadtxt('embeddings/' + lang + '_embeddings.txt')
+        embeddings = file
+    else:
     # INDENT the following two lines if you want to use the condition file_exists()
-    embeddings = embed(sentences,lang)
-    save_embeddings(embeddings,lang)
+        embeddings = embed(sentences,lang)
+        save_embeddings(embeddings,lang)
     return(embeddings)
 
 
